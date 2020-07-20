@@ -246,6 +246,7 @@ public class FrCTHD extends javax.swing.JFrame {
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
 
     /**
@@ -305,4 +306,5 @@ public class FrCTHD extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
 }

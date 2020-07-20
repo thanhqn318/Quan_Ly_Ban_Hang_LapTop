@@ -21,6 +21,7 @@ public class FrDangNhap extends javax.swing.JFrame {
     public FrDangNhap() {
         initComponents();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
 
     /**
@@ -51,6 +52,7 @@ public class FrDangNhap extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -275,10 +277,10 @@ public class FrDangNhap extends javax.swing.JFrame {
     private void btDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDangNhapActionPerformed
         // TODO add your handling code here:
         try {
-            new FrDangNhap().setDefaultCloseOperation(HIDE_ON_CLOSE);
             MainJFrame m = new MainJFrame();
             m.setVisible(true);
             m.setLocationRelativeTo(null);
+            dispose();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btDangNhapActionPerformed
@@ -359,4 +361,5 @@ public class FrDangNhap extends javax.swing.JFrame {
     private javax.swing.JTextField tfMatKhau;
     private javax.swing.JTextField tfTenDangNhap;
     // End of variables declaration//GEN-END:variables
+
 }

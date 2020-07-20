@@ -116,8 +116,8 @@ public class ChuyenManHinh {
         @Override
         public void mouseExited(MouseEvent e) {
             if (!kindSelected.equalsIgnoreCase(kind)) {
-                jpnItem.setBackground(new Color(0, 51, 51));
-                jlbItem.setBackground(new Color(0, 51, 51));
+                jpnItem.setBackground(new Color(43, 75, 179));
+                jlbItem.setBackground(new Color(43, 75, 179));
             }
         }
 
@@ -129,8 +129,8 @@ public class ChuyenManHinh {
                 item.getJpn().setBackground(new Color(96, 100, 191));
                 item.getJlb().setBackground(new Color(96, 100, 191));
             } else {
-                item.getJpn().setBackground(new Color(0, 51, 51));
-                item.getJlb().setBackground(new Color(0, 51, 51));
+                item.getJpn().setBackground(new Color(43, 75, 179));
+                item.getJlb().setBackground(new Color(43, 75, 179));
             }
         }
     }
