@@ -28,6 +28,7 @@ public class FrTrangChu extends javax.swing.JPanel {
     private void initComponents() {
 
         setBackground(new java.awt.Color(153, 0, 153));
+        setPreferredSize(new java.awt.Dimension(1260, 689));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

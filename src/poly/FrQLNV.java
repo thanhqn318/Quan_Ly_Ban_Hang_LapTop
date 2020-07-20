@@ -65,6 +65,7 @@ public class FrQLNV extends javax.swing.JPanel {
         jButton10 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1260, 632));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
