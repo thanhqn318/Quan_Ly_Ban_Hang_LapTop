@@ -1,21 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package poly;
 
-/**
- *
- * @author ADMIN
- */
-public class FrQLSP extends javax.swing.JPanel {
+import KetNoi.Helper;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
-    /**
-     * Creates new form QLKH
-     */
+public class FrQLSP extends javax.swing.JPanel {
+    String headers[] = {"MaLapTop", "TenLapTop" ,"CauHinhCT" ,"Mau" ,"ThuongHieu","SoLuong" ,"BaoHanh", "GiaBan", "HinhAnh"};
+    DefaultTableModel model = new DefaultTableModel(headers, 0);
+    Connection con = Helper.ketnoi("LapTopStore");
     public FrQLSP() {
         initComponents();
+        LoadDataToJTable();
     }
 
     /**
@@ -29,17 +29,17 @@ public class FrQLSP extends javax.swing.JPanel {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbSanPham = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btDauTien = new javax.swing.JButton();
+        btLui = new javax.swing.JButton();
+        btTien = new javax.swing.JButton();
+        btCuoi = new javax.swing.JButton();
+        btXuatFile = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        txtMaSpFind = new javax.swing.JTextField();
+        bttTimKiem = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -49,25 +49,25 @@ public class FrQLSP extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        txtMaSP = new javax.swing.JTextField();
+        txtTenSP = new javax.swing.JTextField();
+        txtMau = new javax.swing.JTextField();
+        txtThuongHieu = new javax.swing.JTextField();
+        txtGia = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField4 = new javax.swing.JTextField();
+        txtCauHinh = new javax.swing.JTextArea();
+        txtSoLuong = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtBaoHanh = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btThem = new javax.swing.JButton();
+        btLuu = new javax.swing.JButton();
+        btXoa = new javax.swing.JButton();
+        btSua = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -75,50 +75,50 @@ public class FrQLSP extends javax.swing.JPanel {
                 "Mã LapTop", "Tên LapTop", "Cấu hình CT", "Màu", "Thương hiệu", "Giá", "Số lượng", "Bảo hành"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbSanPham);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Quản lý sản phẩm");
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/First record.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btDauTien.setBackground(new java.awt.Color(255, 255, 255));
+        btDauTien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/First record.png"))); // NOI18N
+        btDauTien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btDauTienActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Rewind.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btLui.setBackground(new java.awt.Color(255, 255, 255));
+        btLui.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Rewind.png"))); // NOI18N
+        btLui.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btLuiActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Fast-forward.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btTien.setBackground(new java.awt.Color(255, 255, 255));
+        btTien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Fast-forward.png"))); // NOI18N
+        btTien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btTienActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Last recor.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btCuoi.setBackground(new java.awt.Color(255, 255, 255));
+        btCuoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Last recor.png"))); // NOI18N
+        btCuoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btCuoiActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Print.png"))); // NOI18N
-        jButton5.setText("Xuất File");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btXuatFile.setBackground(new java.awt.Color(255, 255, 255));
+        btXuatFile.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btXuatFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Print.png"))); // NOI18N
+        btXuatFile.setText("Xuất File");
+        btXuatFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btXuatFileActionPerformed(evt);
             }
         });
 
@@ -128,11 +128,11 @@ public class FrQLSP extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Mã SP");
 
-        jTextField1.setBackground(new java.awt.Color(204, 204, 204));
+        txtMaSpFind.setBackground(new java.awt.Color(204, 204, 204));
 
-        jButton6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Search.png"))); // NOI18N
-        jButton6.setText("Find");
+        bttTimKiem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        bttTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Search.png"))); // NOI18N
+        bttTimKiem.setText("Find");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,9 +142,9 @@ public class FrQLSP extends javax.swing.JPanel {
                 .addGap(57, 57, 57)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMaSpFind, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
-                .addComponent(jButton6)
+                .addComponent(bttTimKiem)
                 .addContainerGap(99, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -153,8 +153,8 @@ public class FrQLSP extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaSpFind, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bttTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -184,42 +184,42 @@ public class FrQLSP extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("Số lượng");
 
-        jTextField2.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtMaSP.setBackground(new java.awt.Color(204, 204, 204));
+        txtMaSP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtMaSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtMaSPActionPerformed(evt);
             }
         });
 
-        jTextField3.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtTenSP.setBackground(new java.awt.Color(204, 204, 204));
+        txtTenSP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jTextField5.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txtMau.setBackground(new java.awt.Color(204, 204, 204));
+        txtMau.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtMau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                txtMauActionPerformed(evt);
             }
         });
 
-        jTextField6.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtThuongHieu.setBackground(new java.awt.Color(204, 204, 204));
+        txtThuongHieu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jTextField7.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtGia.setBackground(new java.awt.Color(204, 204, 204));
+        txtGia.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jTextArea1.setBackground(new java.awt.Color(204, 204, 204));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtCauHinh.setBackground(new java.awt.Color(204, 204, 204));
+        txtCauHinh.setColumns(20);
+        txtCauHinh.setRows(5);
+        jScrollPane2.setViewportView(txtCauHinh);
 
-        jTextField4.setBackground(new java.awt.Color(204, 204, 204));
+        txtSoLuong.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel11.setText("Bảo hành");
 
-        jTextField8.setBackground(new java.awt.Color(204, 204, 204));
+        txtBaoHanh.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -241,13 +241,13 @@ public class FrQLSP extends javax.swing.JPanel {
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField8))))
+                            .addComponent(txtMaSP)
+                            .addComponent(txtTenSP)
+                            .addComponent(txtMau)
+                            .addComponent(txtThuongHieu)
+                            .addComponent(txtGia, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                            .addComponent(txtSoLuong)
+                            .addComponent(txtBaoHanh))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -256,13 +256,13 @@ public class FrQLSP extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(jTextField3)))
+                        .addComponent(txtTenSP)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -270,23 +270,23 @@ public class FrQLSP extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBaoHanh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -304,25 +304,30 @@ public class FrQLSP extends javax.swing.JPanel {
             .addGap(0, 185, Short.MAX_VALUE)
         );
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Add.png"))); // NOI18N
-        jButton7.setText("Thêm");
+        btThem.setBackground(new java.awt.Color(255, 255, 255));
+        btThem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Add.png"))); // NOI18N
+        btThem.setText("Thêm");
+        btThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemActionPerformed(evt);
+            }
+        });
 
-        jButton8.setBackground(new java.awt.Color(255, 255, 255));
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save.png"))); // NOI18N
-        jButton8.setText("Lưu");
+        btLuu.setBackground(new java.awt.Color(255, 255, 255));
+        btLuu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save.png"))); // NOI18N
+        btLuu.setText("Lưu");
 
-        jButton9.setBackground(new java.awt.Color(255, 255, 255));
-        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Delete.png"))); // NOI18N
-        jButton9.setText("Xóa");
+        btXoa.setBackground(new java.awt.Color(255, 255, 255));
+        btXoa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Delete.png"))); // NOI18N
+        btXoa.setText("Xóa");
 
-        jButton10.setBackground(new java.awt.Color(255, 255, 255));
-        jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Edit.png"))); // NOI18N
-        jButton10.setText("Sửa");
+        btSua.setBackground(new java.awt.Color(255, 255, 255));
+        btSua.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Edit.png"))); // NOI18N
+        btSua.setText("Sửa");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -340,10 +345,10 @@ public class FrQLSP extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(23, 23, 23)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(btThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btLuu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -351,15 +356,15 @@ public class FrQLSP extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(jButton1)
+                        .addComponent(btDauTien)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btLui)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)
+                        .addComponent(btTien)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btCuoi)
                         .addGap(183, 183, 183)
-                        .addComponent(jButton5)
+                        .addComponent(btXuatFile)
                         .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(289, 289, 289)
@@ -377,12 +382,12 @@ public class FrQLSP extends javax.swing.JPanel {
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btLui, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btTien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btCuoi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btDauTien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btXuatFile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -393,59 +398,64 @@ public class FrQLSP extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btThem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
-                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
-                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btSua, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
-                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btDauTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDauTienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btDauTienActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btCuoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCuoiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btCuoiActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btLuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btLuiActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTienActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btTienActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btXuatFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXuatFileActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btXuatFileActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtMaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaSPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtMaSPActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txtMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMauActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtMauActionPerformed
+
+    private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
+        // TODO add your handling code here:
+        them();
+    }//GEN-LAST:event_btThemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCuoi;
+    private javax.swing.JButton btDauTien;
+    private javax.swing.JButton btLui;
+    private javax.swing.JButton btLuu;
+    private javax.swing.JButton btSua;
+    private javax.swing.JButton btThem;
+    private javax.swing.JButton btTien;
+    private javax.swing.JButton btXoa;
+    private javax.swing.JButton btXuatFile;
+    private javax.swing.JButton bttTimKiem;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -462,15 +472,52 @@ public class FrQLSP extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTable tbSanPham;
+    private javax.swing.JTextField txtBaoHanh;
+    private javax.swing.JTextArea txtCauHinh;
+    private javax.swing.JTextField txtGia;
+    private javax.swing.JTextField txtMaSP;
+    private javax.swing.JTextField txtMaSpFind;
+    private javax.swing.JTextField txtMau;
+    private javax.swing.JTextField txtSoLuong;
+    private javax.swing.JTextField txtTenSP;
+    private javax.swing.JTextField txtThuongHieu;
     // End of variables declaration//GEN-END:variables
+    private void them(){
+        txtBaoHanh.setText("");
+        txtCauHinh.setText("");
+        txtGia.setText("");
+        txtMaSP.setText("");
+        txtMaSpFind.setText("");
+        txtMau.setText("");
+        txtTenSP.setText("");
+        txtThuongHieu.setText("");
+        txtSoLuong.setText("");
+    }
+    
+    private void LoadDataToJTable(){
+        try {
+            model.setRowCount(0);
+            Statement st = con.createStatement();
+            String sql = "Select * from LapTop";
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                Vector row = new Vector();
+                row.add(rs.getString("MaLapTop").trim());
+                row.add(rs.getString("TenLapTop").trim());
+                row.add(rs.getString("CauHinhCT").trim());
+                row.add(rs.getString("Mau").trim());
+                row.add(rs.getString("ThuongHieu").trim());
+                row.add(rs.getInt("SoLuong"));
+                row.add(rs.getString("BaoHanh").trim());
+                row.add(rs.getDouble("GiaBan"));
+                row.add(rs.getString("HinhAnh").trim());
+                model.addRow(row);
+            }
+            tbSanPham.setModel(model);
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

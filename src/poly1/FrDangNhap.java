@@ -7,6 +7,7 @@ package poly1;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import poly.FrCTHD;
 import poly.MainJFrame;
 
 /**
@@ -295,7 +296,7 @@ public class FrDangNhap extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-        setState(JFrame.ICONIFIED);
+        setState(FrDangNhap.ICONIFIED);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void btThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThoatActionPerformed
