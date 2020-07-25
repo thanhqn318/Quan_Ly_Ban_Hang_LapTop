@@ -1,8 +1,10 @@
 
 package Object;
 
+import java.io.Serializable;
 
-public class SanPham {
+
+public class SanPham implements Serializable{
     private String MaLapTop;
     private String TenLapTop;
     private String CauHinhCT;
@@ -10,13 +12,13 @@ public class SanPham {
     private String ThuongHieu;
     private int SoLuong;
     private String BaoHanh;
-    private double GiaBan;
+    private float GiaBan;
     private String HinhAnh;
 
     public SanPham() {
     }
 
-    public SanPham(String MaLapTop, String TenLapTop, String CauHinhCT, String Mau, String ThuongHieu, int SoLuong, String BaoHanh, double GiaBan, String HinhAnh) {
+    public SanPham(String MaLapTop, String TenLapTop, String CauHinhCT, String Mau, String ThuongHieu, int SoLuong, String BaoHanh, float GiaBan, String HinhAnh) {
         this.MaLapTop = MaLapTop;
         this.TenLapTop = TenLapTop;
         this.CauHinhCT = CauHinhCT;
@@ -84,11 +86,11 @@ public class SanPham {
         this.BaoHanh = BaoHanh;
     }
 
-    public double getGiaBan() {
+    public float getGiaBan() {
         return GiaBan;
     }
 
-    public void setGiaBan(double GiaBan) {
+    public void setGiaBan(float GiaBan) {
         this.GiaBan = GiaBan;
     }
 

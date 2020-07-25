@@ -1,18 +1,22 @@
-
 package poly;
 
 import KetNoi.Helper;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class FrQLSP extends javax.swing.JPanel {
-    String headers[] = {"MaLapTop", "TenLapTop" ,"CauHinhCT" ,"Mau" ,"ThuongHieu","SoLuong" ,"BaoHanh", "GiaBan", "HinhAnh"};
+    
+    int index;
+    String headers[] = {"MaLapTop", "TenLapTop", "CauHinhCT", "Mau", "ThuongHieu", "SoLuong", "BaoHanh", "GiaBan"};
     DefaultTableModel model = new DefaultTableModel(headers, 0);
     Connection con = Helper.ketnoi("LapTopStore");
+    
     public FrQLSP() {
         initComponents();
         LoadDataToJTable();
@@ -75,6 +79,11 @@ public class FrQLSP extends javax.swing.JPanel {
                 "Mã LapTop", "Tên LapTop", "Cấu hình CT", "Màu", "Thương hiệu", "Giá", "Số lượng", "Bảo hành"
             }
         ));
+        tbSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbSanPhamMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbSanPham);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -211,15 +220,18 @@ public class FrQLSP extends javax.swing.JPanel {
 
         txtCauHinh.setBackground(new java.awt.Color(204, 204, 204));
         txtCauHinh.setColumns(20);
+        txtCauHinh.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtCauHinh.setRows(5);
         jScrollPane2.setViewportView(txtCauHinh);
 
         txtSoLuong.setBackground(new java.awt.Color(204, 204, 204));
+        txtSoLuong.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel11.setText("Bảo hành");
 
         txtBaoHanh.setBackground(new java.awt.Color(204, 204, 204));
+        txtBaoHanh.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -266,8 +278,8 @@ public class FrQLSP extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -287,7 +299,7 @@ public class FrQLSP extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBaoHanh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -318,6 +330,11 @@ public class FrQLSP extends javax.swing.JPanel {
         btLuu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save.png"))); // NOI18N
         btLuu.setText("Lưu");
+        btLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLuuActionPerformed(evt);
+            }
+        });
 
         btXoa.setBackground(new java.awt.Color(255, 255, 255));
         btXoa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -443,6 +460,24 @@ public class FrQLSP extends javax.swing.JPanel {
         them();
     }//GEN-LAST:event_btThemActionPerformed
 
+    private void tbSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSanPhamMouseClicked
+        // TODO add your handling code here:
+        int row = tbSanPham.getSelectedRow();
+        txtMaSP.setText(tbSanPham.getValueAt(row, 0).toString());
+        txtTenSP.setText(tbSanPham.getValueAt(row, 1).toString());
+        txtCauHinh.setText(tbSanPham.getValueAt(row, 2).toString());
+        txtMau.setText(tbSanPham.getValueAt(row, 3).toString());
+        txtThuongHieu.setText(tbSanPham.getValueAt(row, 4).toString());
+        txtGia.setText(tbSanPham.getValueAt(row, 7).toString());
+        txtSoLuong.setText(tbSanPham.getValueAt(row, 5).toString());
+        txtBaoHanh.setText(tbSanPham.getValueAt(row, 6).toString());
+    }//GEN-LAST:event_tbSanPhamMouseClicked
+
+    private void btLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuuActionPerformed
+        // TODO add your handling code here:
+        luu();
+    }//GEN-LAST:event_btLuuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCuoi;
@@ -483,7 +518,7 @@ public class FrQLSP extends javax.swing.JPanel {
     private javax.swing.JTextField txtTenSP;
     private javax.swing.JTextField txtThuongHieu;
     // End of variables declaration//GEN-END:variables
-    private void them(){
+    private void them() {
         txtBaoHanh.setText("");
         txtCauHinh.setText("");
         txtGia.setText("");
@@ -495,11 +530,11 @@ public class FrQLSP extends javax.swing.JPanel {
         txtSoLuong.setText("");
     }
     
-    private void LoadDataToJTable(){
+    private void LoadDataToJTable() {
         try {
             model.setRowCount(0);
             Statement st = con.createStatement();
-            String sql = "Select * from LapTop";
+            String sql = "Select MaLapTop, TenLapTop, CauHinhCT, Mau, ThuongHieu, SoLuong, BaoHanh, GiaBan from LapTop";
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 Vector row = new Vector();
@@ -510,14 +545,50 @@ public class FrQLSP extends javax.swing.JPanel {
                 row.add(rs.getString("ThuongHieu").trim());
                 row.add(rs.getInt("SoLuong"));
                 row.add(rs.getString("BaoHanh").trim());
-                row.add(rs.getDouble("GiaBan"));
-                row.add(rs.getString("HinhAnh").trim());
+                row.add(rs.getFloat("GiaBan"));
                 model.addRow(row);
             }
             tbSanPham.setModel(model);
-            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
+    private boolean checkNull() {
+        return false;
+    }
+    
+    private void luu() {
+        try {
+            if (txtMaSP.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không bỏ trống mã sản phẩm.");
+                txtMaSP.requestFocus();
+            } else {
+                try {
+                    String sql = "insert into LapTop values(?, ?, ?, ?, ?, ?, ?, ?, null)";
+                    PreparedStatement st = con.prepareStatement(sql);
+                    st.setString(1, txtMaSP.getText());
+                    st.setString(2, txtTenSP.getText());
+                    st.setString(3, txtCauHinh.getText());
+                    st.setString(4, txtMau.getText());
+                    st.setString(5, txtThuongHieu.getText());
+                    st.setInt(6, Integer.parseInt(txtSoLuong.getText()));
+                    st.setString(7, txtBaoHanh.getText());
+                    st.setFloat(8, Float.parseFloat(txtGia.getText()));
+                    st.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Lưu thành công!");
+                    LoadDataToJTable();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex);
+                    JOptionPane.showMessageDialog(this, "Lưu thất bại!");
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+    
+    private void xoa(){
+        
+    }
+    
 }

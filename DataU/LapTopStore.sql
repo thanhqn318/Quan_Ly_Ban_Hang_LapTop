@@ -1,4 +1,4 @@
-Create Database LapTopStore
+﻿Create Database LapTopStore
 go
 Use LapTopStore
 go
@@ -77,4 +77,4 @@ CREATE TABLE USERS
 )
 
 INSERT INTO LapTop
-VALUES (N'LT01',N'Asus Vivobook','RAM 8GB',N'Tr?ng','Asus',10,N'12 th�ng',15000000,'Asusvivobook.jpg')
+VALUES (N'LT01',N'Asus Vivobook','RAM 8GB',N'Trắng','Asus',10,N'12 tháng',15000000,'Asusvivobook.jpg')
