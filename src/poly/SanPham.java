@@ -1,5 +1,5 @@
 
-package Object;
+package poly;
 
 import java.io.Serializable;
 
@@ -106,6 +106,6 @@ public class SanPham implements Serializable{
     public String toString() {
         return "SanPham{" + "MaLapTop=" + MaLapTop + ", TenLapTop=" + TenLapTop + ", CauHinhCT=" + CauHinhCT + ", Mau=" + Mau + ", ThuongHieu=" + ThuongHieu + ", SoLuong=" + SoLuong + ", BaoHanh=" + BaoHanh + ", GiaBan=" + GiaBan + ", HinhAnh=" + HinhAnh + '}';
     }
-    
+
     
 }

@@ -1,6 +1,7 @@
 package poly;
 
 import KetNoi.Helper;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,15 +12,26 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class FrQLSP extends javax.swing.JPanel {
-    
+
+    ArrayList<SanPham> lstSanPham = new ArrayList<>();
     int index;
-    String headers[] = {"MaLapTop", "TenLapTop", "CauHinhCT", "Mau", "ThuongHieu", "SoLuong", "BaoHanh", "GiaBan"};
+    String headers[] = {"MaLapTop", "TenLapTop", "CauHinhCT", "Mau", "ThuongHieu", "SoLuong", "BaoHanh", "GiaBan", "HinhAnh"};
     DefaultTableModel model = new DefaultTableModel(headers, 0);
     Connection con = Helper.ketnoi("LapTopStore");
-    
+
     public FrQLSP() {
         initComponents();
-        LoadDataToJTable();
+
+        if (con != null) {
+            LoadDataToJTable();
+            if (lstSanPham.size() > 0) {
+                index = 0;
+                showDetail();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Lỗi kết nối");
+            System.exit(0);
+        }
     }
 
     /**
@@ -429,18 +441,48 @@ public class FrQLSP extends javax.swing.JPanel {
 
     private void btDauTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDauTienActionPerformed
         // TODO add your handling code here:
+        try {
+            index = 0;
+            showDetail();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Không di chuyển được nữa");
+        }
     }//GEN-LAST:event_btDauTienActionPerformed
 
     private void btCuoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCuoiActionPerformed
         // TODO add your handling code here:
+        try {
+            index = lstSanPham.size() - 1;
+            showDetail();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Không di chuyển được nữa");
+        }
     }//GEN-LAST:event_btCuoiActionPerformed
 
     private void btLuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuiActionPerformed
         // TODO add your handling code here:
+        try {
+            if (index > 0) {
+                index--;
+                showDetail();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Không di chuyển được nữa");
+        }
     }//GEN-LAST:event_btLuiActionPerformed
 
     private void btTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTienActionPerformed
         // TODO add your handling code here:
+        try {
+            if (index < lstSanPham.size() - 1) {
+                index++;
+                showDetail();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Không di chuyển được nữa");
+        }
     }//GEN-LAST:event_btTienActionPerformed
 
     private void btXuatFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXuatFileActionPerformed
@@ -462,20 +504,23 @@ public class FrQLSP extends javax.swing.JPanel {
 
     private void tbSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSanPhamMouseClicked
         // TODO add your handling code here:
-        int row = tbSanPham.getSelectedRow();
-        txtMaSP.setText(tbSanPham.getValueAt(row, 0).toString());
-        txtTenSP.setText(tbSanPham.getValueAt(row, 1).toString());
-        txtCauHinh.setText(tbSanPham.getValueAt(row, 2).toString());
-        txtMau.setText(tbSanPham.getValueAt(row, 3).toString());
-        txtThuongHieu.setText(tbSanPham.getValueAt(row, 4).toString());
-        txtGia.setText(tbSanPham.getValueAt(row, 7).toString());
-        txtSoLuong.setText(tbSanPham.getValueAt(row, 5).toString());
-        txtBaoHanh.setText(tbSanPham.getValueAt(row, 6).toString());
+        try {
+            index = tbSanPham.getSelectedRow();
+            if (index >= 0) {
+                showDetail();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "lỗi click Table");
+        }
     }//GEN-LAST:event_tbSanPhamMouseClicked
 
     private void btLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuuActionPerformed
         // TODO add your handling code here:
-        luu();
+        if (checkNull() == true) {
+            luu();
+        }
+
+
     }//GEN-LAST:event_btLuuActionPerformed
 
 
@@ -519,76 +564,186 @@ public class FrQLSP extends javax.swing.JPanel {
     private javax.swing.JTextField txtThuongHieu;
     // End of variables declaration//GEN-END:variables
     private void them() {
-        txtBaoHanh.setText("");
-        txtCauHinh.setText("");
-        txtGia.setText("");
-        txtMaSP.setText("");
-        txtMaSpFind.setText("");
-        txtMau.setText("");
-        txtTenSP.setText("");
-        txtThuongHieu.setText("");
-        txtSoLuong.setText("");
+        txtBaoHanh.setText(null);
+        txtCauHinh.setText(null);
+        txtGia.setText(null);
+        txtMaSP.setText(null);
+        txtMaSpFind.setText(null);
+        txtMau.setText(null);
+        txtTenSP.setText(null);
+        txtThuongHieu.setText(null);
+        txtSoLuong.setText(null);
     }
-    
+
     private void LoadDataToJTable() {
         try {
             model.setRowCount(0);
             Statement st = con.createStatement();
-            String sql = "Select MaLapTop, TenLapTop, CauHinhCT, Mau, ThuongHieu, SoLuong, BaoHanh, GiaBan from LapTop";
+            String sql = "SELECT *\n"
+                    + "FROM LapTop";
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 Vector row = new Vector();
-                row.add(rs.getString("MaLapTop").trim());
-                row.add(rs.getString("TenLapTop").trim());
-                row.add(rs.getString("CauHinhCT").trim());
-                row.add(rs.getString("Mau").trim());
-                row.add(rs.getString("ThuongHieu").trim());
-                row.add(rs.getInt("SoLuong"));
-                row.add(rs.getString("BaoHanh").trim());
-                row.add(rs.getFloat("GiaBan"));
+                row.add(rs.getString(1));
+                row.add(rs.getString(2));
+                row.add(rs.getString(3));
+                row.add(rs.getString(4));
+                row.add(rs.getString(5));
+                row.add(rs.getInt(6));
+                row.add(rs.getString(7));
+                row.add(rs.getFloat(8));
+                row.add(rs.getString(9));
                 model.addRow(row);
+                tbSanPham.setModel(model);
+                lstSanPham.add(new SanPham(rs.getString("MaLapTop"),
+                        rs.getString("TenLapTop"),
+                        rs.getString("CauHinhCT"),
+                        rs.getString("Mau"),
+                        rs.getString("ThuongHieu"),
+                        rs.getInt("SoLuong"),
+                        rs.getString("BaoHanh"),
+                        rs.getFloat("GiaBan"),
+                        rs.getString("HinhAnh"))
+                );
             }
-            tbSanPham.setModel(model);
+
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi load dữ liệu: " + e);
+            System.exit(0);
         }
+
     }
-    
+
     private boolean checkNull() {
-        return false;
+        String masp = txtMaSP.getText();
+        String tensp = txtTenSP.getText();
+        String cauhinh = txtCauHinh.getText();
+        String mau = txtMau.getText();
+        String thuonghieu = txtThuongHieu.getText();
+        String baohanh = txtBaoHanh.getText();
+        int soLuong;
+        float gia;
+        if (kiemtratrung(masp) == true) {
+            JOptionPane.showMessageDialog(this, "Trùng mã sản phẩm");
+            txtMaSP.setText("");
+            txtMaSP.requestFocus();
+            return false;
+        } else if (masp.equals("")) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập mã sản phầm");
+            txtMaSP.requestFocus();
+            return false;
+        } else if (tensp.equals("")) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập tên sản phầm");
+            txtTenSP.requestFocus();
+            return false;
+        } else if (cauhinh.equals("")) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập cấu hình sản phầm");
+            txtCauHinh.requestFocus();
+            return false;
+        } else if (mau.equals("")) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập màu sản phầm");
+            txtMau.requestFocus();
+            return false;
+        } else if (thuonghieu.equals("")) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập thương hiệu sản phầm");
+            txtThuongHieu.requestFocus();
+            return false;
+        }
+        try {
+            soLuong = Integer.parseInt(txtSoLuong.getText());
+            if (soLuong <= 0) {
+                JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0");
+                txtGia.requestFocus();
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập đúng định dạng số lượng");
+            txtSoLuong.requestFocus();
+            return false;
+        }
+        try {
+            gia = Float.parseFloat(txtGia.getText());
+            if (gia <= 0) {
+                JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0");
+                txtGia.requestFocus();
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập đúng định dạng giá");
+            txtGia.requestFocus();
+            return false;
+        }
+
+        if (baohanh.equals("")) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập bảo hành sản phầm");
+            txtBaoHanh.requestFocus();
+            return false;
+        }
+        return true;
+
     }
-    
+
     private void luu() {
         try {
-            if (txtMaSP.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Không bỏ trống mã sản phẩm.");
-                txtMaSP.requestFocus();
+            String masp = txtMaSP.getText();
+            String tensp = txtTenSP.getText();
+            String cauhinh = txtCauHinh.getText();
+            String mau = txtMau.getText();
+            String thuonghieu = txtThuongHieu.getText();
+            int soLuong = Integer.parseInt(txtSoLuong.getText());
+            String baohanh = txtBaoHanh.getText();
+            float gia = Float.parseFloat(txtGia.getText());
+            lstSanPham.add(new SanPham(masp, tensp, cauhinh, mau, thuonghieu, soLuong, baohanh, gia, null));
+            model.addRow(new Object[]{masp, tensp, cauhinh, mau, thuonghieu, soLuong, baohanh, gia, null});
+            String sql = "INSERT INTO LapTop\n"
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, null)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, masp);
+            ps.setString(2, tensp);
+            ps.setString(3, cauhinh);
+            ps.setString(4, mau);
+            ps.setString(5, thuonghieu);
+            ps.setInt(6, soLuong);
+            ps.setString(7, baohanh);
+            ps.setFloat(8, gia);
+            int row = ps.executeUpdate();
+            if (row > 0) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                index = lstSanPham.size() - 1;
+                showDetail();
             } else {
-                try {
-                    String sql = "insert into LapTop values(?, ?, ?, ?, ?, ?, ?, ?, null)";
-                    PreparedStatement st = con.prepareStatement(sql);
-                    st.setString(1, txtMaSP.getText());
-                    st.setString(2, txtTenSP.getText());
-                    st.setString(3, txtCauHinh.getText());
-                    st.setString(4, txtMau.getText());
-                    st.setString(5, txtThuongHieu.getText());
-                    st.setInt(6, Integer.parseInt(txtSoLuong.getText()));
-                    st.setString(7, txtBaoHanh.getText());
-                    st.setFloat(8, Float.parseFloat(txtGia.getText()));
-                    st.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Lưu thành công!");
-                    LoadDataToJTable();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, ex);
-                    JOptionPane.showMessageDialog(this, "Lưu thất bại!");
-                }
+                JOptionPane.showMessageDialog(this, "Không thêm được dòng nào");
             }
-        } catch (Exception e) {
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Lưu thất bại: " + ex);
         }
     }
-    
-    private void xoa(){
-        
+
+    private void xoa() {
+
     }
-    
+
+    private void showDetail() {
+        SanPham sp = lstSanPham.get(index);
+        txtMaSP.setText(sp.getMaLapTop());
+        txtTenSP.setText(sp.getTenLapTop());
+        txtCauHinh.setText(sp.getCauHinhCT());
+        txtMau.setText(sp.getMau());
+        txtThuongHieu.setText(sp.getThuongHieu());
+        txtSoLuong.setText(sp.getSoLuong() + "");
+        txtBaoHanh.setText(sp.getBaoHanh());
+        txtGia.setText(sp.getGiaBan() + "");
+        tbSanPham.setRowSelectionInterval(index, index);
+    }
+
+    private boolean kiemtratrung(String ma) {
+        boolean kt = false;
+        for (int i = 0; i < lstSanPham.size(); i++) {
+            if (lstSanPham.get(i).getMaLapTop().equalsIgnoreCase(ma) == true) {
+                kt = true;
+            }
+        }
+        return kt;
+    }
 }
