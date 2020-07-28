@@ -20,7 +20,7 @@ public class Helper {
             String user = "sa";
             String pass = "123";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://DESKTOP-SQI2KBJ:1433;databaseName="+ database;
+            String url = "jdbc:sqlserver://localhost:1433;databaseName="+ database;
             Connection con = DriverManager.getConnection(url, user, pass);
             return con;
         } catch (Exception e) {
