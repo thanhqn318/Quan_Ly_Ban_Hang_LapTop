@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package KetNoi;
+package UHepler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

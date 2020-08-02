@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -61,38 +64,37 @@ public class ChuyenManHinh {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            switch (kind) {
-                case "TrangChu":
-                    node = new FrTrangChu();
-                    break;
-                case "QLKH":
-                    node = new FrQLKH();
-                    break;
-                case "QLSP":
-                    node = new FrQLSP();
-                    break;
-                case "QLNV":
-                    node = new FrQLNV();
-                    break;
-                case "QLHD":
-                    node = new FrQLHD();
-                    break;
-                case "DangXuat":
-                    int i = JOptionPane.showConfirmDialog(null, "Bạn có muốn rời đi");
-                    if (i == 0) {
-                        System.exit(0);
-                    }
-                    break;
-                // more
-                default:
-                    break;
+            try {
+                switch (kind) {
+                    case "TrangChu":
+                        node = new FrTrangChu();
+                        break;
+                    case "QLKH":
+                        node = new FrQLKH();
+                        break;
+                    case "QLSP":
+                        node = new FrQLSP();
+                        break;
+                    case "QLNV":
+                        node = new FrQLNV();
+                        break;
+                    case "QLHD":
+                        node = new FrQLHD();
+                        break;
+                    default:
+                        break;
+                }
+                root.removeAll();
+                root.setLayout(new BorderLayout());
+                root.add(node);
+                root.validate();
+                root.repaint();
+                setChangeBG(kind);
+            } catch (SQLException ex) {
+                Logger.getLogger(ChuyenManHinh.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ChuyenManHinh.class.getName()).log(Level.SEVERE, null, ex);
             }
-            root.removeAll();
-            root.setLayout(new BorderLayout());
-            root.add(node);
-            root.validate();
-            root.repaint();
-            setChangeBG(kind);
         }
 
         @Override
